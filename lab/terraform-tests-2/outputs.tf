@@ -9,5 +9,9 @@ output "todo_ids_repourl" {
 }
 
 output "repo_uri" {
-  value = module.simple_example[0].github_repository.html_url
+  value = module.simple_example[*].github_repository.html_url
+}
+
+output "remaining_step2_details" {
+  value = todo_todo.remaining
 }
