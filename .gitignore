@@ -22,3 +22,6 @@ todo-list-server
 # Don't ignore these
 !/terraform-provider-todo/
 !/cmd/todo-list-server/
+
+
+*__modules/
