@@ -24,8 +24,6 @@ provider "github" {
   token = var.github_token
 }
 
-
-
 resource "todo_todo" "step_2" {
   count = 3
   description = "${count.index}: ${var.purpose} todo from step_2"
@@ -63,4 +61,31 @@ module "simple_example" {
   description = "this repo created by terraform index=${count.index+1} outof ${var.repo_count}"
   visibility = "private"
   auto_init = true
+}
+
+resource "todo_todo" "create_1" {
+  description = "important"
+  completed = false
+}
+
+resource "todo_todo" "create_2" {
+  description = "forced dependency"
+  completed = false
+  depends_on = [ todo_todo.create_1 ]
+}
+
+
+resource "todo_todo" "create_3" {
+  description = "auto dependency"
+  completed = todo_todo.create_2.completed
+}
+
+resource "todo_todo" "create_4" {
+  description = "auto dependency"
+  completed = todo_todo.create_2.completed
+  lifecycle {
+    ignore_changes = [
+      completed,
+    ]
+  }
 }
